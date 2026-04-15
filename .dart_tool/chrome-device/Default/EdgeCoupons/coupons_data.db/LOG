@@ -1,0 +1,71 @@
+2026/04/15-08:00:59.459 5ab8 Reusing MANIFEST C:\Users\mithu\AppData\Local\Temp\flutter_tools.4dc82b2b\flutter_tools_chrome_device.5b668cb6\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/15-08:00:59.461 5ab8 Recovering log #75
+2026/04/15-08:00:59.462 5ab8 Level-0 table #78: started
+2026/04/15-08:00:59.476 5ab8 Level-0 table #78: 208 bytes OK
+2026/04/15-08:00:59.476 5ab8 Recovering log #78
+2026/04/15-08:00:59.476 5ab8 Level-0 table #79: started
+2026/04/15-08:00:59.522 5ab8 Level-0 table #79: 264 bytes OK
+2026/04/15-08:00:59.523 5ab8 Recovering log #81
+2026/04/15-08:00:59.523 5ab8 Level-0 table #80: started
+2026/04/15-08:00:59.538 5ab8 Level-0 table #80: 208 bytes OK
+2026/04/15-08:00:59.538 5ab8 Recovering log #84
+2026/04/15-08:00:59.538 5ab8 Reusing old log C:\Users\mithu\AppData\Local\Temp\flutter_tools.4dc82b2b\flutter_tools_chrome_device.5b668cb6\Default\EdgeCoupons/coupons_data.db/000084.log 
+2026/04/15-08:00:59.542 5ab8 Delete type=0 #4
+2026/04/15-08:00:59.543 5ab8 Delete type=0 #7
+2026/04/15-08:00:59.543 5ab8 Delete type=2 #8
+2026/04/15-08:00:59.553 5ab8 Delete type=0 #10
+2026/04/15-08:00:59.554 5ab8 Delete type=2 #11
+2026/04/15-08:00:59.554 5ab8 Delete type=0 #13
+2026/04/15-08:00:59.554 5ab8 Delete type=2 #14
+2026/04/15-08:00:59.554 5ab8 Delete type=0 #16
+2026/04/15-08:00:59.555 5ab8 Delete type=2 #17
+2026/04/15-08:00:59.555 5ab8 Delete type=0 #19
+2026/04/15-08:00:59.555 5ab8 Delete type=2 #21
+2026/04/15-08:00:59.555 5ab8 Delete type=0 #23
+2026/04/15-08:00:59.555 5ab8 Delete type=2 #24
+2026/04/15-08:00:59.555 5ab8 Delete type=0 #26
+2026/04/15-08:00:59.555 5ab8 Delete type=2 #27
+2026/04/15-08:00:59.556 5ab8 Delete type=0 #29
+2026/04/15-08:00:59.556 5ab8 Delete type=2 #30
+2026/04/15-08:00:59.556 5ab8 Delete type=0 #32
+2026/04/15-08:00:59.556 5ab8 Delete type=2 #34
+2026/04/15-08:00:59.556 5ab8 Delete type=0 #36
+2026/04/15-08:00:59.556 5ab8 Delete type=2 #37
+2026/04/15-08:00:59.556 5ab8 Delete type=0 #39
+2026/04/15-08:00:59.557 5ab8 Delete type=2 #40
+2026/04/15-08:00:59.557 5ab8 Delete type=0 #42
+2026/04/15-08:00:59.557 5ab8 Delete type=2 #43
+2026/04/15-08:00:59.557 5ab8 Delete type=0 #45
+2026/04/15-08:00:59.557 5ab8 Delete type=2 #47
+2026/04/15-08:00:59.558 5ab8 Delete type=0 #49
+2026/04/15-08:00:59.558 5ab8 Delete type=2 #50
+2026/04/15-08:00:59.558 5ab8 Delete type=0 #52
+2026/04/15-08:00:59.558 5ab8 Delete type=2 #53
+2026/04/15-08:00:59.558 5ab8 Delete type=0 #55
+2026/04/15-08:00:59.558 5ab8 Delete type=2 #56
+2026/04/15-08:00:59.559 5ab8 Delete type=0 #58
+2026/04/15-08:00:59.559 5ab8 Delete type=2 #60
+2026/04/15-08:00:59.559 5ab8 Delete type=0 #62
+2026/04/15-08:00:59.559 5ab8 Delete type=2 #63
+2026/04/15-08:00:59.559 5ab8 Delete type=0 #65
+2026/04/15-08:00:59.559 5ab8 Delete type=2 #66
+2026/04/15-08:00:59.560 5ab8 Delete type=0 #68
+2026/04/15-08:00:59.560 5ab8 Delete type=2 #69
+2026/04/15-08:00:59.560 5ab8 Delete type=0 #71
+2026/04/15-08:00:59.560 5ab8 Delete type=0 #75
+2026/04/15-08:00:59.560 5ab8 Delete type=0 #78
+2026/04/15-08:00:59.560 5ab8 Delete type=0 #81
+2026/04/15-08:00:59.561 5ab8 Delete type=2 #82
+2026/04/15-08:00:59.574 5ab8 Delete type=2 #86
+2026/04/15-08:00:59.590 41a0 Compacting 4@0 + 1@1 files
+2026/04/15-08:00:59.593 41a0 Generated table #85@0: 4 keys, 242 bytes
+2026/04/15-08:00:59.593 41a0 Compacted 4@0 + 1@1 files => 242 bytes
+2026/04/15-08:00:59.594 41a0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/04/15-08:00:59.595 41a0 Delete type=2 #73
+2026/04/15-08:00:59.595 41a0 Delete type=2 #76
+2026/04/15-08:00:59.595 41a0 Delete type=2 #78
+2026/04/15-08:00:59.595 41a0 Delete type=2 #79
+2026/04/15-08:00:59.595 41a0 Delete type=2 #80
+2026/04/15-08:01:10.423 41a0 Level-0 table #87: started
+2026/04/15-08:01:10.426 41a0 Level-0 table #87: 682264 bytes OK
+2026/04/15-08:01:10.427 41a0 Delete type=0 #84
