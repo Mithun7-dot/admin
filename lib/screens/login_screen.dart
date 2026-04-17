@@ -53,8 +53,13 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
 
     _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen(
       (event) {
-        if (event.event == AuthChangeEvent.signedIn && mounted) {
-          _handleSignedIn();
+        if ((event.event == AuthChangeEvent.signedIn ||
+                event.event == AuthChangeEvent.initialSession) &&
+            mounted) {
+          final session = Supabase.instance.client.auth.currentSession;
+          if (session != null) {
+            _handleSignedIn();
+          }
         }
       },
     );
