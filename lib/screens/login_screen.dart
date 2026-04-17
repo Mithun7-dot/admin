@@ -15,6 +15,8 @@
 //   - Any other error → inline error banner
 // ─────────────────────────────────────────────────────────────────────────────
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -34,13 +36,87 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   bool _loading = false; // Controls the loading spinner on the button
   String? _error; // Non-null when there is an auth error to display
   bool _obscure = true; // Controls password visibility toggle
+  late final StreamSubscription<AuthState> _authSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen(
+      (event) {
+        if (event.event == AuthChangeEvent.signedIn && mounted) {
+          _handleSignedIn();
+        }
+      },
+    );
+  }
 
   @override
   void dispose() {
-    // Always dispose controllers to prevent memory leaks
+    _authSubscription.cancel();
     _emailCtrl.dispose();
     _passCtrl.dispose();
     super.dispose();
+  }
+
+  Future<void> _handleSignedIn() async {
+    final session = Supabase.instance.client.auth.currentSession;
+    if (session == null) return;
+
+    try {
+      final userData = await Supabase.instance.client
+          .from('users')
+          .select('role')
+          .eq('id', session.user.id)
+          .maybeSingle();
+
+      if (userData == null ||
+          ![
+            'admin',
+            'ceo',
+            'stock_manager',
+            'pricing_manager',
+            'order_manager',
+            'qa_manager'
+          ].contains(userData['role'])) {
+        await Supabase.instance.client.auth.signOut();
+        if (mounted) {
+          setState(() => _error = 'Access denied. Admin accounts only.');
+        }
+        return;
+      }
+
+      if (mounted) context.go('/dashboard');
+    } catch (e) {
+      await Supabase.instance.client.auth.signOut();
+      if (mounted) {
+        setState(() =>
+            _error = 'Unable to verify admin permissions. Please try again.');
+      }
+    }
+  }
+
+  Future<void> _signInWithGoogle() async {
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
+
+    try {
+      final launched = await Supabase.instance.client.auth.signInWithOAuth(
+        OAuthProvider.google,
+      );
+
+      if (!launched && mounted) {
+        setState(() =>
+            _error = 'Unable to launch Google sign-in. Please try again.');
+      }
+    } on AuthException catch (e) {
+      setState(() => _error = e.message);
+    } catch (e) {
+      setState(() => _error = e.toString());
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
   /// Called when the user taps "SIGN IN TO ADMIN" or presses Enter.
@@ -61,33 +137,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
       );
 
       if (res.user == null) throw Exception('Authentication failed');
-
-      // Step 2: Check if the logged-in user has an admin-level role
-      // We query the public `users` table (NOT auth.users) which has a `role` column
-      const validRoles = [
-        'admin',
-        'ceo',
-        'stock_manager',
-        'pricing_manager',
-        'order_manager',
-        'qa_manager'
-      ];
-      final userData = await Supabase.instance.client
-          .from('users')
-          .select('role')
-          .eq('id', res.user!.id)
-          .maybeSingle(); // Returns null if no row found (safe, no exception)
-
-      // Step 3: Reject non-admin users
-      if (userData == null || !validRoles.contains(userData['role'])) {
-        // Sign them out of Supabase Auth immediately
-        await Supabase.instance.client.auth.signOut();
-        setState(() => _error = 'Access denied. Admin accounts only.');
-        return;
-      }
-
-      // Step 4: All checks passed — navigate to dashboard
-      if (mounted) context.go('/dashboard');
+      await _handleSignedIn();
     } on AuthException catch (e) {
       // Supabase-specific auth errors (e.g. invalid credentials)
       setState(() => _error = e.message);
@@ -202,6 +252,28 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 ),
               ],
               const SizedBox(height: 24),
+
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: OutlinedButton.icon(
+                  onPressed: _loading ? null : _signInWithGoogle,
+                  icon: const Icon(Icons.login, color: Colors.white),
+                  label: _loading
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2, color: Colors.white),
+                        )
+                      : const Text('SIGN IN WITH GOOGLE'),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.white38),
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
 
               // ── Submit button ───────────────────────────────────────────────
               SizedBox(
