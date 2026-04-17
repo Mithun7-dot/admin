@@ -102,8 +102,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     });
 
     try {
+      // Use explicit redirect to Supabase callback URL to prevent localhost redirect issues
       final launched = await Supabase.instance.client.auth.signInWithOAuth(
         OAuthProvider.google,
+        redirectTo: 'https://dpvvgioytyfhigrnsdyo.supabase.co/auth/v1/callback',
       );
 
       if (!launched && mounted) {
