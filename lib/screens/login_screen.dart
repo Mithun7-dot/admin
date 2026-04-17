@@ -41,6 +41,16 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   @override
   void initState() {
     super.initState();
+
+    // Check if user is already signed in (e.g., after OAuth redirect)
+    final session = Supabase.instance.client.auth.currentSession;
+    if (session != null && mounted) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _handleSignedIn();
+      });
+      return;
+    }
+
     _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen(
       (event) {
         if (event.event == AuthChangeEvent.signedIn && mounted) {
@@ -102,10 +112,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     });
 
     try {
-      // Use explicit redirect to Supabase callback URL to prevent localhost redirect issues
+      // For web OAuth, don't specify redirectTo — let Supabase handle it automatically
+      // This prevents localhost redirect issues by using the current app URL
       final launched = await Supabase.instance.client.auth.signInWithOAuth(
         OAuthProvider.google,
-        redirectTo: 'https://dpvvgioytyfhigrnsdyo.supabase.co/auth/v1/callback',
       );
 
       if (!launched && mounted) {
